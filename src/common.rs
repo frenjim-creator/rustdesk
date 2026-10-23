@@ -2462,6 +2462,11 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
 pub fn load_custom_client() {
     // InsicosHelp branding: custom.txt (if present) may still override it below.
     *config::APP_NAME.write().unwrap() = "InsicosHelp".to_owned();
+    // Fit the remote screen to the window by default.
+    config::DEFAULT_DISPLAY_SETTINGS
+        .write()
+        .unwrap()
+        .insert(config::keys::OPTION_VIEW_STYLE.to_owned(), "adaptive".to_owned());
     #[cfg(debug_assertions)]
     if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
